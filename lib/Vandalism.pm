@@ -7,7 +7,7 @@ use utf8;
 use LWP::UserAgent;
 use Getopt::Std;
 use Unicode::Normalize;
-use Text::Unaccent;
+use Text::Unaccent::PurePerl;
 
 use Loc;
 use Logging;
@@ -174,7 +174,7 @@ sub init_regex
         $comment = "";
         /#\s+(.+)/ and $comment = $1;
         my $orig_regex = $_;
-        $_ = Text::Unaccent::unac_string( "UTF-8", $_ );
+        $_ = Text::Unaccent::PurePerl::unac_string( "UTF-8", $_ );
 
         next unless (/^\s*([+-]?\d+)\s+\/(.+)\//);
         my $regex_score = $1;
@@ -337,7 +337,7 @@ sub check_fragment
     }
 
     # Clean up accents/diacritics
-    $_ = Text::Unaccent::unac_string( "UTF-8", $_ );
+    $_ = Text::Unaccent::PurePerl::unac_string( "UTF-8", $_ );
 
     # Cleanup
     s/(\w+)\.(\w+)/$1$2/g;
